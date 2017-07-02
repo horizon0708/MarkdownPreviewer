@@ -8,52 +8,71 @@
 //var marked = require('marked');
 
 class MainBody extends React.Component {
-    constructor(prop){
+    constructor(prop) {
         super(prop);
+        this.state = { rawtext: 'start' };
+
+        this.onRawTextChange = this.onRawTextChange.bind(this);
     }
 
-    render(){
-        return(
+    onRawTextChange(text) {
+        this.setState({ rawtext });
+    }
+
+    render() {
+        const raxtext = this.state.rawtext;
+        return (
             <div class="row">
-                <TextInputField />
-                <Preview />
+                <TextInputField rawtext={rawtext} onTextChange={this.onRawTextChange} />
+                <TextInputField rawtext={rawtext} onTextChange={this.onRawTextChange} />
             </div>
-            
         );
     }
 }
 
-class TextInputField extends React.Component {    
-    render(){
-            const style = {
-        width: 300,
-        height: 300
-    };
-        return(
-            <div class='col-md-6'>
-                <textarea type="text" style={style}></textarea>
+class TextInputField extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(e) {
+        this.props.onTextChange(e.target.value);
+    }
+
+    render() {
+        const style = {
+            width: 300,
+            height: 300
+        };
+        const rawtext = this.props.rawtext;
+
+        return (
+            <div>
+                <textarea type="text" value={rawtext} style={style}/>
+                <h1>whyy </h1>
             </div>
         );
     }
 }
 
 class Preview extends React.Component {
-    render(){
+
+    render() {
         const style = {
             width: 300,
             height: 300
         };
-        return(
-            <div class='col-md-6'>
-                <div style={style}>ijfwf</div>
-            </div>
+
+        const rawtext = this.props.rawtext;
+        return (
+            <div style={style}>ijfwf</div>
         );
     }
 }
 
 ReactDOM.render(
-    <div class="container">
-        <MainBody />
-    </div>,
-    document.getElementById('root')
+
+    <MainBody />
+    , document.getElementById('root')
 );
