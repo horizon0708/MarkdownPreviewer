@@ -1,7 +1,7 @@
 // [] I can type GitHub-flavored Markdown into a text area.
 // []I can see a preview of the output of my markdown that is updated as I type.
 
-// https://cdnjs.com/libraries/marked
+// https://cdnjs.com/libraries/marked <-- this one does not work, and its bloody from FCC!!!!
 // https://github.com/chjj/marked
 //https://codepen.io/horizon0708/pen/dRmZbR
 
@@ -14,6 +14,10 @@ class MainBody extends React.Component {
 
         this.onRawTextChange = this.onRawTextChange.bind(this);
     }
+     getMarkdownText(){
+        var toast = marked(this.state.rawtext, {sanitize: true});
+        return { __html: toast};
+    }
 
     onRawTextChange(rawtext) {
         this.setState({ rawtext });
@@ -23,6 +27,7 @@ class MainBody extends React.Component {
         const text = this.state.rawtext;
         return (
             <div class="row">
+                <div dangerouslySetInnerHTML={this.getMarkdownText()} />
                 <TextInputField onTextChange={this.onRawTextChange} />
                 <Preview rawtext={text} />
             </div>
@@ -56,21 +61,23 @@ class TextInputField extends React.Component {
 }
 
 class Preview extends React.Component {
+   
     render() {
         const style = {
             width: 300,
             height: 300
         };
-
         const rawtext = this.props.rawtext;
         return (
+            <div>
             <div style={style}>{rawtext}</div>
+            
+            </div>
         );
     }
 }
 
 ReactDOM.render(
-
     <MainBody />
     , document.getElementById('root')
 );
