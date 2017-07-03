@@ -17,14 +17,17 @@ class MainBody extends React.Component{
         return (
             <div className="container">
                 <div className="row">
+                    <div className="col-md-6">
+                      <div id="output">
+                        <div dangerouslySetInnerHTML={this.getMarkDownText()} />          
+                      </div>
+                    </div>
                     <div className="col-md-6" id="input">
-                        <textarea type="text" onChange={this.handleChange}>
-                        {startText}
-                        </textarea>
+                        <div id="input">
+                            <textarea type="text" onChange={this.handleChange}>{startText}</textarea>                          
+                        </div>
                     </div>
-                    <div className="col-md-6" id="output">
-                        <div dangerouslySetInnerHTML={this.getMarkDownText()} />                       
-                    </div>
+                    
                 </div>               
             </div>
         );
