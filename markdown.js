@@ -10,21 +10,21 @@
 class MainBody extends React.Component {
     constructor(prop) {
         super(prop);
-        this.state = { rawtext: 'start' };
+        this.state = { rawtext: 'wef' };
 
         this.onRawTextChange = this.onRawTextChange.bind(this);
     }
 
-    onRawTextChange(text) {
+    onRawTextChange(rawtext) {
         this.setState({ rawtext });
     }
 
     render() {
-        const raxtext = this.state.rawtext;
+        const text = this.state.rawtext;
         return (
             <div class="row">
-                <TextInputField rawtext={rawtext} onTextChange={this.onRawTextChange} />
-                <TextInputField rawtext={rawtext} onTextChange={this.onRawTextChange} />
+                <TextInputField onTextChange={this.onRawTextChange} />
+                <Preview rawtext={text} />
             </div>
         );
     }
@@ -49,15 +49,13 @@ class TextInputField extends React.Component {
 
         return (
             <div>
-                <textarea type="text" value={rawtext} style={style}/>
-                <h1>whyy </h1>
+                <textarea type="text" style={style} onChange={this.handleChange} />
             </div>
         );
     }
 }
 
 class Preview extends React.Component {
-
     render() {
         const style = {
             width: 300,
@@ -66,7 +64,7 @@ class Preview extends React.Component {
 
         const rawtext = this.props.rawtext;
         return (
-            <div style={style}>ijfwf</div>
+            <div style={style}>{rawtext}</div>
         );
     }
 }
